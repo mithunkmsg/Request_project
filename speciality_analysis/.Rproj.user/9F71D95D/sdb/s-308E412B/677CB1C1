@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(reshape2)\nlibrary(dplyr)\nlibrary(xts)\nlibrary(dygraphs)\nspeciality_wise<-read.csv(\"speciality_wise.csv\")\ncity_wise<-read.csv(\"city_wise.csv\")\nspeciality_wise$X<-NULL\nspeciality_wise$X.1<-NULL\nspeciality_wise[is.na(speciality_wise)]<-0\ncity_wise[is.na(city_wise)]<-0\ndf1<-melt(speciality_wise,id.vars = c(\"Date\",\"Speciality\"))\ndf2<-melt(city_wise,id.vars = c(\"Date\",\"City_Name\"))\ndf1$Date<-as.Date(df1$Date, format=\"%m/%d/%Y\")\ndf2$Date<-as.Date(df2$Date, format=\"%m/%d/%Y\")\n\nshinyServer(\n  function(input,output){\n    selected <- reactive({df1 %>% \n        filter(Speciality==input$Speciality,variable == input$Type) %>% \n        group_by(Date) %>%\n        summarise(n = value)})\n    \n    selected2 <- reactive({df2 %>% \n        filter(City_Name==input$City,variable == input$Type) %>% \n        group_by(Date) %>%\n        summarise(n = value)})\n    \n    output$title <- renderText({\n      paste0(input$Type, \" in \",input$Speciality)})\n    \n    \n    \n    output$dygraph<-renderDygraph({\n      spe_xts <- xts(selected()$n, order.by = as.Date(selected()$Date))\n      dygraph(spe_xts,xlab = \"week (plot for speciatity_wise)\",ylab = \"Frequency\")%>%\n        dySeries(\"V1\",label=input$Type,color = \"blue\", fillGraph = F, strokeWidth = 3, drawPoints = TRUE, pointSize = 6)\n              }\n      )\n    \n    output$dygraph2<-renderDygraph({\n      spe_xts2<-xts(selected2()$n,order.by = as.Date(selected2()$Date))\n      dygraph(spe_xts2,xlab = \"week (plot for city_wise)\",ylab = \"Frequency\")%>%\n        dySeries(\"V1\",label=input$Type,color=\"red\",fillGraph = F, strokeWidth = 3, drawPoints = T, pointSize = 6)\n    })\n  }\n)\n    \n    \n    \n  \n",
+    "created" : 1520418190800.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "985836282",
+    "id" : "677CB1C1",
+    "lastKnownWriteTime" : 1520418195,
+    "last_content_update" : 1520418195963,
+    "path" : "E:/DATA SCIENCE/credihealth/graph data/App/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
