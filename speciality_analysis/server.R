@@ -2,7 +2,7 @@ library(reshape2)
 library(dplyr)
 library(xts)
 library(dygraphs)
-speciality_wise<-readRDS("speciality_wise.rda")
+speciality_wise<-readRDS("speciality_wise.RDA")
 speciality_wise[is.na(speciality_wise)]<-0
 df1<-melt(speciality_wise,id.vars = c("Date","Speciality"))
 df1$Date<-as.Date(df1$Date, format="%m/%d/%Y")
