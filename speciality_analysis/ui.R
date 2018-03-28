@@ -4,7 +4,7 @@ library(xts)
 library(dplyr)
 library(tidyr)
 library(reshape2)
-speciality_wise<-readRDS("speciality_wise.RDA")
+speciality_wise<-readRDS("speciality_wise.rda")
 
 speciality_wise[is.na(speciality_wise)]<-0
 
