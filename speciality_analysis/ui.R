@@ -4,10 +4,8 @@ library(xts)
 library(dplyr)
 library(tidyr)
 library(reshape2)
-speciality_wise<-readRDS("speciality_wise.rda")
+speciality_wise<-readRDS("speciality_wise.RDA")
 
-speciality_wise$X<-NULL
-speciality_wise$X.1<-NULL
 speciality_wise[is.na(speciality_wise)]<-0
 
 df1<-melt(speciality_wise,id.vars = c("Date","Speciality"))
