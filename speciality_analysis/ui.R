@@ -19,7 +19,7 @@ shinyUI(
     titlePanel(div(h4(textOutput("title"), align = "center"), style = "color:Green"),windowTitle = "Request Analysis"),
     sidebarPanel(
       selectInput("Speciality","1. Please select a Speciality:",choices = levels(df1$Speciality),selected = "Renal Sciences"),
-      selectInput("Type","2. Please select a Type:",choices = levels(df1$variable),selected = "Domestic_Request"),
+      selectInput("Type","2. Please select a Type:",choices = levels(df1$variable),selected = "Domestic_Request")
     
       ),
     mainPanel(
