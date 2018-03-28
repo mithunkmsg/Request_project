@@ -12,6 +12,10 @@ df1<-melt(speciality_wise,id.vars = c("Date","Speciality"))
 df2<-melt(city_wise,id.vars = c("Date","City_Name"))
 df1$Date<-as.Date(df1$Date, format="%m/%d/%Y")
 df2$Date<-as.Date(df2$Date, format="%m/%d/%Y")
+df2$City_Name<-as.factor(df2$City_Name)
+df2$Category<-as.factor(df2$Category)
+
+
 
 shinyServer(
   function(input,output){
