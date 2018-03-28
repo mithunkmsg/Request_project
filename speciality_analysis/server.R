@@ -2,7 +2,7 @@ library(reshape2)
 library(dplyr)
 library(xts)
 library(dygraphs)
-speciality_wise<-readRDS("speciality_wise.rda")
+speciality_wise<-readRDS("speciality_wise.RDA")
 city_wise<-readRDS("city_wise.rda")
 speciality_wise$X<-NULL
 speciality_wise$X.1<-NULL
